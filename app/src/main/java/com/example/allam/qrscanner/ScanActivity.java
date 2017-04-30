@@ -35,7 +35,6 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
 
     @Override
     public void handleResult(Result result) {
-
         String scanResult = result.getText();
         String scanFormat = result.getBarcodeFormat().toString();
         Toast.makeText(this, scanResult, Toast.LENGTH_SHORT).show();

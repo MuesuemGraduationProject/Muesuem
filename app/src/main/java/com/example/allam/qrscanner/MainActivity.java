@@ -20,6 +20,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.allam.qrscanner.database.DatabaseOperations;
+import com.example.allam.qrscanner.model.StatueModel;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -28,12 +30,14 @@ public class MainActivity extends AppCompatActivity  {
     private FloatingActionButton mScanButton;
     private TextView mScanDataTextView;
     private static final int SCAN_INTENT = 1;
+    private DatabaseOperations mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mDatabase = new DatabaseOperations(getBaseContext());
         mScanButton = (FloatingActionButton) findViewById(R.id.scan_button);
         mScanDataTextView = (TextView) findViewById(R.id.scan_data);
 
@@ -63,7 +67,13 @@ public class MainActivity extends AppCompatActivity  {
                 if(resultCode != RESULT_OK && data != null){
                     mScanDataTextView.setText("No Data Found");
                 }else {
-                    mScanDataTextView.setText(scanFormat + " data: ( " + scanResult + " )");
+//                    mScanDataTextView.setText(scanFormat + " data: ( " + scanResult + " )");
+                    StatueModel statueModel = new StatueModel();
+                    statueModel.setName(scanResult);
+                    statueModel.setDscription(scanResult + ": is an Egyptian statue that found in aswan");
+                    mDatabase.insertIntoStatues(statueModel);
+
+                    mScanDataTextView.setText(mDatabase.getStatueDescription(scanResult));
                 }
         }
     }
