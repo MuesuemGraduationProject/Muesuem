@@ -18,7 +18,7 @@ import static com.example.allam.qrscanner.database.DatabaseStructure.StatueTable
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private String query = "create table " + TABLE_NAME + " ( " +
-            ID + " integer autoIncrement, " +
+            ID + " integer primary key autoincrement, " +
             NAME + " , " +
             DESCRIPTION + " );";
     public DatabaseHelper(Context context) {

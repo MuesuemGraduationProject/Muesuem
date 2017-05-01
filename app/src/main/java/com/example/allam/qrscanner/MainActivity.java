@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity  {
                 }
             }
         });
-
     }
 
 
@@ -64,15 +63,14 @@ public class MainActivity extends AppCompatActivity  {
             case SCAN_INTENT:
                 String scanResult = data.getExtras().getString("scan_result");
                 String scanFormat = data.getExtras().getString("scan_format");
-                if(resultCode != RESULT_OK && data != null){
+                if(resultCode != RESULT_OK){
                     mScanDataTextView.setText("No Data Found");
                 }else {
-//                    mScanDataTextView.setText(scanFormat + " data: ( " + scanResult + " )");
+//                  mScanDataTextView.setText(scanFormat + " data: ( " + scanResult + " )");
                     StatueModel statueModel = new StatueModel();
                     statueModel.setName(scanResult);
                     statueModel.setDscription(scanResult + ": is an Egyptian statue that found in aswan");
                     mDatabase.insertIntoStatues(statueModel);
-
                     mScanDataTextView.setText(mDatabase.getStatueDescription(scanResult));
                 }
         }
