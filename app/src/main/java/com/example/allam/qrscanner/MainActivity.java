@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity  {
         mScanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 0);
                 } else {
@@ -83,6 +82,8 @@ public class MainActivity extends AppCompatActivity  {
             case 0:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "Permission allowed successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, ScanActivity.class);
+                    startActivityForResult(intent, SCAN_INTENT);
                 } else {
                     Toast.makeText(this, "You need to accept read sms permission first," +
                             " \n go to app settings and allow them.", Toast.LENGTH_LONG).show();
